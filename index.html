@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <link rel="stylesheet" href="./dist/output.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
+
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+    <title>Frontend Mentor | E-commerce product page</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      .swiper-button-next,
+      .swiper-button-prev {
+        background-color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        color: #000 !important;
+        fill: black !important;
+        stroke: black !important;
+      }
+      .swiper-button-next::after,
+      .swiper-button-prev::after {
+        font-size: 15px !important;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body class="lg:overflow-hiden">
+    <div
+      class="lightbox hidden lg:hidden absolute bg-black bg-opacity-60 w-screen h-screen justify-center items-center"
+    >
+      <div
+        class="absolute top-6 bg-white w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
+        id="closeL"
+      >
+        <img src="./images/icon-close.svg" alt="" />
+      </div>
+      <div
+        class="image-gallery-laptop hidden lg:grid lg:grid-cols-1 lg:mt-16 px-15 place-items-center"
+      >
+        <div class="thumbnail w-[150%] mb-8">
+          <img
+            src="./images/image-product-1-thumbnail.jpg"
+            class="w-full rounded-2xl"
+            id="current-l"
+            alt=""
+          />
+        </div>
+        <div class="pagination">
+          <ul class="grid grid-cols-4">
+            <li class="active:opacity-50 cursor-pointer mr-2">
+              <img
+                src="./images/image-product-1-thumbnail.jpg"
+                class="w-16 h-16 active:border-4 active:border-orange-400 rounded-xl option-l"
+                alt=""
+              />
+            </li>
+            <li class="active:opacity-50 cursor-pointer mr-2">
+              <img
+                src="./images/image-product-2-thumbnail.jpg"
+                class="w-16 h-16 active:border-4 active:border-orange-400 rounded-xl option-l"
+                alt=""
+              />
+            </li>
+            <li class="active:opacity-50 cursor-pointer mr-2">
+              <img
+                src="./images/image-product-3-thumbnail.jpg"
+                class="w-16 h-16 active:border-4 active:border-orange-400 rounded-xl option-l"
+                alt=""
+              />
+            </li>
+            <li class="active:opacity-50 cursor-pointer mr-2">
+              <img
+                src="./images/image-product-4-thumbnail.jpg"
+                class="w-16 h-16 active:border-4 active:border-orange-400 rounded-xl option-l"
+                alt=""
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div
+      class="opacity-100 mobile-menu absolute lg:hidden hidden h-screen w-[60vw] bg-[#ffffff] p-6 z-50"
+    >
+      <button class="cross cursor-pointer" id="close">
+        <img class="mb-10" src="./images/icon-close.svg" alt="" />
+      </button>
+      <ul class="justify-between">
+        <li class="mb-5 text-m"><a href="/">Collections</a></li>
+        <li class="mb-5 text-m"><a href="/">Men</a></li>
+        <li class="mb-5 text-m"><a href="/">Women</a></li>
+        <li class="mb-5 text-m"><a href="/">About</a></li>
+        <li class="text-sm"><a href="/">Contact</a></li>
+      </ul>
+    </div>
+    <div class="elements -z-10">
+      <header class="lg:px-32 px-6">
+        <nav
+          class="flex justify-between py-2 lg:py-8 lg:border-b-2 lg:border-slate-200"
+        >
+          <div class="flex justify-between items-center">
+            <div class="mobile-menu lg:hidden flex items-center">
+              <button id="menu">
+                <img
+                  src="./images/icon-menu.svg"
+                  class="h-4 w-4 mr-4 cursor-pointer"
+                  alt=""
+                />
+              </button>
+            </div>
+            <div class="logo font-bold text-2xl mr-10">sneakers</div>
+            <ul class="lg:flex justify-between hidden">
+              <li class="mr-5 text-sm"><a href="/">Collections</a></li>
+              <li class="mr-5 text-sm"><a href="/">Men</a></li>
+              <li class="mr-5 text-sm"><a href="/">Women</a></li>
+              <li class="mr-5 text-sm"><a href="/">About</a></li>
+              <li class="text-sm"><a href="/">Contact</a></li>
+            </ul>
+          </div>
+          <div class="flex justify-between items-center">
+            <img
+              src="./images/icon-cart.svg"
+              class="h-5 w-5 mr-5 cursor-pointer after:block after:content-['3']"
+              id="cart"
+              alt=""
+            />
+            <img
+              src="./images/image-avatar.png"
+              class="h-10 w-10 cursor-pointer"
+              alt=""
+            />
+          </div>
+        </nav>
+      </header>
+      <div
+        class="modal absolute top-15 right-2 z-50 bg-white w-11/12 rounded-xl hidden lg:w-1/4 lg:right-36 shadow-lg"
+        id="modal"
+      >
+        <div id="empty" class="w-full h-52 flex justify-center items-center text-2xl">Your cart is empty</div>
+        <div id="filled" class="hidden">
+          <div class="font-bold border-b-2 border-b-gray-300 p-5 text-lg">
+            Cart
+          </div>
+          <div class="p-5 flex justify-between items-center">
+            <div class="flex justify-center">
+              <img
+                src="./images/image-product-1-thumbnail.jpg"
+                class="w-14 mr-2 rounded-md"
+                alt=""
+              />
+              <div class="flex flex-col justify-center text-gray-400">
+                Autumn Limited Edition...
+                <p>
+                  $125 × <span id="quantity">3 </span
+                  ><span id="total" class="font-bold text-black">$375</span>
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <button><img src="./images/icon-delete.svg" alt="" id="delete"/></button>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <button
+              class="bg-orange-500 w-full rounded-md flex items-center justify-center h-12 text-white"
+            >
+              Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+      <main class="lg:px-32 grid grid-cols-1 lg:grid-cols-2 lg:mb-32">
+        <div class="image-gallery-mobile lg:hidden">
+          <!-- Slider main container -->
+          <div class="swiper w-[100vw] h-80">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide">
+                <img
+                  src="./images/image-product-1.jpg"
+                  class="w-[100%] h-[100%]"
+                  alt=""
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="./images/image-product-2.jpg"
+                  class="w-[100%] h-[100%]"
+                  alt=""
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="./images/image-product-3.jpg"
+                  class="w-[100%] h-[100%]"
+                  alt=""
+                />
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="./images/image-product-4.jpg"
+                  class="w-[100%] h-[100%]"
+                  alt=""
+                />
+              </div>
+            </div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+        <div
+          class="image-gallery-laptop hidden lg:grid lg:grid-cols-1 lg:mt-16 px-20"
+        >
+          <div class="thumbnail w-full mb-8 cursor-pointer">
+            <img
+              src="./images/image-product-1-thumbnail.jpg"
+              class="w-full rounded-2xl cursor-pointer"
+              id="current"
+              alt=""
+            />
+          </div>
+          <div class="pagination">
+            <ul class="grid grid-cols-4">
+              <li class="active:opacity-50 cursor-pointer">
+                <img
+                  src="./images/image-product-1-thumbnail.jpg"
+                  class="w-16 h-16 active:border-4 active:border-orange-400 rounded-xl option"
+                  alt=""
+                />
+              </li>
+              <li class="active:opacity-50 cursor-pointer">
+                <img
+                  src="./images/image-product-2-thumbnail.jpg"
+                  class="w-16 h-16 active:border-4 active:border-orange-400 rounded-xl option"
+                  alt=""
+                />
+              </li>
+              <li class="active:opacity-50 cursor-pointer">
+                <img
+                  src="./images/image-product-3-thumbnail.jpg"
+                  class="w-16 h-16 active:border-4 active:border-orange-400 rounded-xl option"
+                  alt=""
+                />
+              </li>
+              <li class="active:opacity-50 cursor-pointer">
+                <img
+                  src="./images/image-product-4-thumbnail.jpg"
+                  class="w-16 h-16 active:border-4 active:border-orange-400 rounded-xl option"
+                  alt=""
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="info mt-4 px-6 lg:mt-32">
+          <div class="text">
+            <div class="company text-orange-400 font-bold text-sm">
+              SNEAKER COMPANY
+            </div>
+            <div class="title mt-2 text-3xl font-bold">
+              Fall Limited Edition Sneakers
+            </div>
+            <div class="subtitle mt-4 text-lg">
+              These low-profile sneakers are your perfect casual wear companion.
+              Featuring a durable rubber outer sole, they’ll withstand
+              everything the weather can offer.
+            </div>
+          </div>
+          <div class="graphics mt-4">
+            <div
+              class="1 flex justify-between items-center lg:flex-col lg:items-start"
+            >
+              <div class="flex items-center">
+                <div class="text-4xl font-bold flex items-center">$125.00</div>
+                <div
+                  class="flex items-center ml-4 bg-orange-200 p-2 text-lg rounded-lg text-orange-600 font-bold"
+                >
+                  50%
+                </div>
+              </div>
+              <div class="text-xl text-gray-400 line-through">$250</div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3">
+              <div
+                class="2 flex justify-between bg-gray-100 h-12 px-4 mt-6 items-center mr-2"
+              >
+                <img
+                  src="./images/icon-minus.svg"
+                  class="w-6 h-2 cursor-pointer lg:w-4 lg:h-1"
+                  id="minus"
+                  alt=""
+                />
+                <span class="text-2xl" id="quantity">0</span>
+                <img
+                  src="./images/icon-plus.svg"
+                  class="w-6 h-6 cursor-pointer lg:w-4 lg:h-4"
+                  id="plus"
+                  alt=""
+                />
+              </div>
+              <button
+                class="bg-orange-500 w-full rounded-md mt-6 flex items-center justify-center h-12"
+                id="addToCart"
+              >
+                <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z"
+                    fill="#FFFFFF"
+                    fill-rule="nonzero"
+                  />
+                </svg>
+                <p class="ml-4 text-white font-bold text-sm">Add to cart</p>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+      const swiper = new Swiper(".swiper", {
+        // Optional parameters
+        direction: "horizontal",
+        loop: true,
+
+        // If we need pagination
+
+        // Navigation arrows
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+
+      var menu = document.getElementById("menu");
+      var close = document.getElementById("close");
+      var closeL = document.getElementById("closeL");
+
+      menu.addEventListener("click", () => {
+        var nav = document.querySelector(".mobile-menu");
+        var items = document.querySelector(".elements");
+        nav.classList.add("block");
+        nav.classList.remove("hidden");
+      });
+      close.addEventListener("click", () => {
+        var nav = document.querySelector(".mobile-menu");
+        nav.classList.remove("block");
+        nav.classList.add("hidden");
+      });
+
+      // Image gallery for desktop
+      var option = document.querySelectorAll(".option");
+
+      option.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          var current = document.getElementById("current");
+          current.src = btn.src;
+        });
+      });
+      var optionl = document.querySelectorAll(".option-l");
+
+      optionl.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          var currentl = document.getElementById("current-l");
+          currentl.src = btn.src;
+        });
+      });
+
+      closeL.addEventListener("click", () => {
+        document.querySelector(".lightbox").classList.add("lg:hidden");
+        document.querySelector("body").classList.remove("lg:overflow-hidden");
+      });
+      var current = document.getElementById("current");
+      current.addEventListener("click", () => {
+        window.scrollTo(0, 0);
+        document.querySelector(".lightbox").classList.remove("lg:hidden");
+        document.querySelector("body").classList.add("lg:overflow-hidden");
+        document.querySelector(".lightbox").classList.add("lg:flex");
+      });
+      var addToCart = document.getElementById("addToCart");
+      var cartFull = false
+
+      addToCart.addEventListener("click", ()=>{
+        var cartFull = true
+      })
+      var cart = document.getElementById("cart");
+      cart.addEventListener("click", () => {
+        var modal = document.getElementById("modal");
+        var empty = document.getElementById("empty");
+        var filled = document.getElementById("filled");
+        modal.classList.toggle("hidden");
+        console.log(cartFull)
+        if (amount > 0) {
+          filled.classList.remove("hidden")
+          empty.classList.add("hidden")
+        }else{
+          filled.classList.add("hidden")
+          empty.classList.remove("hidden")
+        }
+      });
+      var add = document.getElementById("plus"),
+        subtract = document.getElementById("minus"),
+        quantity = document.querySelectorAll("#quantity"),
+        del = document.getElementById("delete"),
+        amount = 0;
+
+      function updateQuantity() {
+        quantity.forEach((btn) => {
+          btn.innerHTML = amount
+        });
+        var total = document.getElementById("total")
+        total.innerHTML = ` $${125 * amount}`
+      }
+
+      add.addEventListener("click", () => {
+        amount++;
+        updateQuantity();
+      });
+      subtract.addEventListener("click", () => {
+        if (amount > 0) {
+          amount--;
+          updateQuantity();
+        }
+      });
+      del.addEventListener("click", () => {
+        if (amount > 0) {
+          amount--;
+          updateQuantity();
+        }
+      });
+
+
+    </script>
+    <!-- Collections
+  Men
+  Women
+  About
+  Contact
+
+  Sneaker Company
+
+  Fall Limited Edition Sneakers
+
+  These low-profile sneakers are your perfect casual wear companion. Featuring a 
+  durable rubber outer sole, they’ll withstand everything the weather can offer.
+
+  $125.00
+  50%
+  $250.00
+
+  0
+  Add to cart
+  
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div> -->
+  </body>
+</html>
