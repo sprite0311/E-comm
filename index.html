@@ -104,19 +104,21 @@
         </div>
       </div>
     </div>
-    <div
-      class="opacity-100 mobile-menu absolute lg:hidden hidden h-screen w-[60vw] bg-[#ffffff] p-6 z-50"
-    >
-      <button class="cross cursor-pointer" id="close">
-        <img class="mb-10" src="./images/icon-close.svg" alt="" />
-      </button>
-      <ul class="justify-between">
-        <li class="mb-5 text-m"><a href="/">Collections</a></li>
-        <li class="mb-5 text-m"><a href="/">Men</a></li>
-        <li class="mb-5 text-m"><a href="/">Women</a></li>
-        <li class="mb-5 text-m"><a href="/">About</a></li>
-        <li class="text-sm"><a href="/">Contact</a></li>
-      </ul>
+    <div class="mobile-menu opacity-100 mobile-menu absolute lg:hidden hidden h-screen w-[100vw] z-50 bg-black bg-opacity-60">
+      <div
+        class="w-[60%] bg-[#ffffff] h-screen relative p-6"
+      >
+        <button class="cross cursor-pointer" id="close">
+          <img class="mb-10" src="./images/icon-close.svg" alt="" />
+        </button>
+        <ul class="justify-between">
+          <li class="mb-5 text-m"><a href="/">Collections</a></li>
+          <li class="mb-5 text-m"><a href="/">Men</a></li>
+          <li class="mb-5 text-m"><a href="/">Women</a></li>
+          <li class="mb-5 text-m"><a href="/">About</a></li>
+          <li class="text-sm"><a href="/">Contact</a></li>
+        </ul>
+      </div>
     </div>
     <div class="elements -z-10">
       <header class="lg:px-32 px-6">
@@ -133,13 +135,13 @@
                 />
               </button>
             </div>
-            <div class="logo font-bold text-2xl mr-10">sneakers</div>
+            <div class="logo font-bold text-2xl mr-10 cursor-pointer">sneakers</div>
             <ul class="lg:flex justify-between hidden">
-              <li class="mr-5 text-sm"><a href="/">Collections</a></li>
-              <li class="mr-5 text-sm"><a href="/">Men</a></li>
-              <li class="mr-5 text-sm"><a href="/">Women</a></li>
-              <li class="mr-5 text-sm"><a href="/">About</a></li>
-              <li class="text-sm"><a href="/">Contact</a></li>
+              <li class="mr-5 hover:border-b-2 border-orange-400 text-sm"><a href="/">Collections</a></li>
+              <li class="mr-5 text-sm  hover:border-b-2 border-orange-400"><a href="/">Men</a></li>
+              <li class="mr-5 text-sm hover:border-b-2 border-orange-400"><a href="/">Women</a></li>
+              <li class="mr-5 text-sm hover:border-b-2 border-orange-400"><a href="/">About</a></li>
+              <li class="text-sm hover:border-b-2 border-orange-400"><a href="/">Contact</a></li>
             </ul>
           </div>
           <div class="flex justify-between items-center">
@@ -327,7 +329,7 @@
                 />
               </div>
               <button
-                class="bg-orange-500 w-full rounded-md mt-6 flex items-center justify-center h-12"
+                class="bg-orange-500 w-full rounded-md mt-6 flex items-center justify-center h-12 hover:opacity-80"
                 id="addToCart"
               >
                 <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg">
